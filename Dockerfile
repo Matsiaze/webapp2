@@ -7,5 +7,7 @@ ENV PORT=80
 RUN rm -Rf /var/www/html/*
 RUN git clone https://github.com/diranetafen/static-website-example.git /var/www/html/
 USER root
-ENTRYPOINT ["/usr/sbin/nginx", "--port=$PORT", "-g", "daemon off;"]
-#CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/nginx.conf
+#ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+#Passing port to Heroku ctnr
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/nginx.conf && \
+    /usr/sbin/nginx -g 'daemon off;'
