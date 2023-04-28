@@ -22,7 +22,7 @@ pipeline {
                script {
                  sh '''
                    docker rm -f ${IMAGE_NAME}
-                   docker run -d --name ${IMAGE_NAME} -e PORT=80 -p 5000:80 mclab7/${IMAGE_NAME}:${IMAGE_TAG}
+                   docker run -d --name ${IMAGE_NAME} -e PORT=80 -p 7000:80 mclab7/${IMAGE_NAME}:${IMAGE_TAG}
                    sleep 7
                  '''
                }
@@ -31,7 +31,7 @@ pipeline {
         stage('Test Image') {
             agent any
             steps {
-                sh 'curl http://192.168.56.9:5000 | grep -q -i "dimension"'
+                sh 'curl http://192.168.56.9:7000 | grep -q -i "dimension"'
             }
         }
         stage('Clean Container') {
